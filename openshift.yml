@@ -27,15 +27,16 @@ objects:
         name: apicast-policy:profile-sharing
     source:
       git:
-        uri: https://github.com/elmcompany/3scale-profile-share-policy.git
-        ref: 'master'
+        uri: https://github.com/gnunn1/3scale-profile-share-policy.git
+        ref: 'main'
       type: Git
     strategy:
       type: Source
       sourceStrategy:
         from:
           kind: ImageStreamTag
-          name: 'amp-apicast:${AMP_RELEASE}'
+          name: 'apicast-gateway:${AMP_RELEASE}'
+          namespace: openshift
 
 - apiVersion: v1
   kind: BuildConfig
@@ -63,6 +64,7 @@ objects:
         - from:
             kind: ImageStreamTag
             name: 'apicast-policy:profile-sharing'
+            namespace: product-catalog
           paths:
             # copy policy source code into the new image
             - destinationDir: policies
@@ -77,7 +79,8 @@ objects:
       dockerStrategy:
         from:
           kind: ImageStreamTag
-          name: 'amp-apicast:${AMP_RELEASE}'
+          name: 'apicast-gateway:${AMP_RELEASE}'
+          namespace: openshift
       type: Docker
     triggers:
       - type: ConfigChange

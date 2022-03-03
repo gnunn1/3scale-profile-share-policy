@@ -73,6 +73,8 @@ local function application_find(self, app_id)
   path = '/admin/api/applications/find.json?'
   local url = build_url(self, path .. 'app_id=' .. app_id .. '&access_token=' .. self.access_token)
 
+  ngx.log(ngx.INFO, 'Calling url: ', url)
+
   local res, err = http_client.get(url)
 
   if not res and err then
@@ -248,7 +250,7 @@ function _M:rewrite(context)
     name = account.org_name,
     info = account.organization_number or account.extra_fields,
     plan_id = nil,
-    plan_name = nil
+    plan_name = nil,
   }
 
   if plan then
