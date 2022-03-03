@@ -121,6 +121,8 @@ end
 local function fetch_profile_from_backend(self, app_id)
   local app_response = application_find(self, app_id)
 
+  ngx.log(ngx.INFO, 'application_find response:', app_response)
+
   if not app_response or
      app_response == cjson.null or
      not app_response.application or
