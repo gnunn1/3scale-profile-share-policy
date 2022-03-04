@@ -71,7 +71,7 @@ local function application_find(self, app_id)
   end
 
   path = '/admin/api/applications/find.json?'
-  local url = build_url(self, path .. 'app_id=' .. app_id .. '&access_token=' .. self.access_token)
+  local url = build_url(self, path .. 'app_id=' .. app_id .. '&access_token=' .. ngx.escape_uri(self.access_token))
 
   ngx.log(ngx.INFO, 'Calling url: ', url)
 
